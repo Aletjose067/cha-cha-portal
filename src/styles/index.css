@@ -1,0 +1,224 @@
+@import url('https://fonts.googleapis.com/css2?family=Bangers&family=Comic+Neue:wght@400;700&family=Permanent+Marker&display=swap');
+
+:root {
+  --comic-yellow: #FFE033;
+  --comic-red: #E8212A;
+  --comic-blue: #1E5FA8;
+  --comic-purple: #7B2FBE;
+  --comic-cyan: #00C4CC;
+  --comic-green: #2ECC40;
+  --comic-black: #111111;
+  --comic-white: #FFFEF0;
+  --comic-paper: #FFF8DC;
+  --comic-dark: #1A0A2E;
+  --border: 4px solid var(--comic-black);
+  --shadow: 6px 6px 0px var(--comic-black);
+  --shadow-lg: 10px 10px 0px var(--comic-black);
+  --font-heading: 'Bangers', cursive;
+  --font-marker: 'Permanent Marker', cursive;
+  --font-body: 'Comic Neue', cursive;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--comic-paper);
+  color: var(--comic-black);
+  overflow-x: hidden;
+  background-image:
+    radial-gradient(circle, rgba(0,0,0,0.08) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+/* Halftone overlay on sections */
+.halftone {
+  background-image: radial-gradient(circle, rgba(0,0,0,0.12) 1.5px, transparent 1.5px);
+  background-size: 12px 12px;
+}
+
+/* Comic panel box */
+.comic-panel {
+  background: var(--comic-white);
+  border: var(--border);
+  box-shadow: var(--shadow);
+  border-radius: 4px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Speech bubble */
+.speech-bubble {
+  background: var(--comic-white);
+  border: 3px solid var(--comic-black);
+  border-radius: 20px;
+  padding: 12px 20px;
+  position: relative;
+  box-shadow: 4px 4px 0 var(--comic-black);
+  font-family: var(--font-body);
+  font-weight: 700;
+}
+
+.speech-bubble::after {
+  content: '';
+  position: absolute;
+  bottom: -20px;
+  left: 24px;
+  border-width: 20px 10px 0;
+  border-style: solid;
+  border-color: var(--comic-black) transparent transparent;
+}
+.speech-bubble::before {
+  content: '';
+  position: absolute;
+  bottom: -14px;
+  left: 26px;
+  border-width: 17px 8px 0;
+  border-style: solid;
+  border-color: var(--comic-white) transparent transparent;
+  z-index: 1;
+}
+
+/* Thought bubble */
+.thought-bubble {
+  background: var(--comic-white);
+  border: 3px solid var(--comic-black);
+  border-radius: 50px;
+  padding: 12px 20px;
+  position: relative;
+  box-shadow: 4px 4px 0 var(--comic-black);
+}
+
+/* Comic button */
+.btn-comic {
+  font-family: var(--font-heading);
+  font-size: 1.4rem;
+  letter-spacing: 2px;
+  padding: 10px 30px;
+  border: 3px solid var(--comic-black);
+  box-shadow: var(--shadow);
+  cursor: pointer;
+  transition: transform 0.1s, box-shadow 0.1s;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border-radius: 4px;
+  text-decoration: none;
+}
+
+.btn-comic:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 8px 8px 0px var(--comic-black);
+}
+
+.btn-comic:active {
+  transform: translate(3px, 3px);
+  box-shadow: 2px 2px 0px var(--comic-black);
+}
+
+.btn-yellow { background: var(--comic-yellow); color: var(--comic-black); }
+.btn-red { background: var(--comic-red); color: white; }
+.btn-purple { background: var(--comic-purple); color: white; }
+.btn-blue { background: var(--comic-blue); color: white; }
+
+/* Onomatopoeia / WOW text */
+.zap-text {
+  font-family: var(--font-heading);
+  font-size: 3rem;
+  letter-spacing: 4px;
+  -webkit-text-stroke: 2px var(--comic-black);
+  text-shadow: 4px 4px 0 var(--comic-black);
+  display: inline-block;
+}
+
+/* Starburst / explosion shape */
+.starburst {
+  position: relative;
+  background: var(--comic-yellow);
+  clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Zigzag border utility */
+.zigzag-top {
+  position: relative;
+}
+.zigzag-top::before {
+  content: '';
+  position: absolute;
+  top: -12px;
+  left: 0;
+  width: 100%;
+  height: 12px;
+  background:
+    linear-gradient(135deg, var(--comic-black) 25%, transparent 25%) -10px 0,
+    linear-gradient(225deg, var(--comic-black) 25%, transparent 25%) -10px 0,
+    linear-gradient(315deg, var(--comic-black) 25%, transparent 25%),
+    linear-gradient(45deg, var(--comic-black) 25%, transparent 25%);
+  background-size: 20px 12px;
+}
+
+/* Comic panel title strip */
+.panel-title {
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  background: var(--comic-black);
+  color: var(--comic-yellow);
+  padding: 4px 12px;
+  display: inline-block;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+/* Animations */
+@keyframes float-comic {
+  0%, 100% { transform: translateY(0) rotate(-1deg); }
+  50% { transform: translateY(-12px) rotate(1deg); }
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-4px) rotate(-1deg); }
+  75% { transform: translateX(4px) rotate(1deg); }
+}
+
+@keyframes pop-in {
+  0% { transform: scale(0) rotate(-10deg); opacity: 0; }
+  70% { transform: scale(1.1) rotate(3deg); }
+  100% { transform: scale(1) rotate(0deg); opacity: 1; }
+}
+
+@keyframes slide-up {
+  from { opacity: 0; transform: translateY(40px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes explode-in {
+  0% { transform: scale(0.2) rotate(-5deg); opacity: 0; }
+  80% { transform: scale(1.05) rotate(1deg); }
+  100% { transform: scale(1) rotate(0deg); opacity: 1; }
+}
+
+@keyframes pulse-border {
+  0%, 100% { box-shadow: var(--shadow); }
+  50% { box-shadow: 10px 10px 0px var(--comic-black), 0 0 20px var(--comic-yellow); }
+}
+
+@keyframes speak-bob {
+  0%, 100% { transform: scaleY(1); }
+  50% { transform: scaleY(1.03) scaleX(0.98); }
+}
+
+.animate-float { animation: float-comic 5s ease-in-out infinite; }
+.animate-pop { animation: pop-in 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
+.animate-slide-up { animation: slide-up 0.7s ease forwards; }
+.delay-100 { animation-delay: 0.1s; opacity: 0; }
+.delay-200 { animation-delay: 0.2s; opacity: 0; }
+.delay-300 { animation-delay: 0.3s; opacity: 0; }
+.delay-400 { animation-delay: 0.4s; opacity: 0; }
+.delay-500 { animation-delay: 0.5s; opacity: 0; }
