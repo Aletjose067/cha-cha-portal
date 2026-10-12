@@ -153,6 +153,7 @@ const Chatbot = ({ isOpen, setIsOpen, setIsSpeaking }) => {
                 placeholder={step === 0 ? "Type the secret phrase..." : "Your answer..."}
                 value={inputValue}
                 onChange={(e) => setInputValue(e.target.value)}
+                onKeyDown={(e) => e.stopPropagation()}
                 disabled={step >= 4 || isSubmitting}
               />
               <button type="submit" className="chatbot-submit" disabled={!inputValue.trim() || step >= 4 || isSubmitting}>

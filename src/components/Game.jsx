@@ -287,6 +287,8 @@ const Game = () => {
     animRef.current = requestAnimationFrame(gameLoop);
 
     const handleKey = (e) => {
+      const tag = e.target?.tagName?.toLowerCase();
+      if (tag === 'input' || tag === 'textarea' || e.target?.isContentEditable) return;
       if (e.code === 'Space') { e.preventDefault(); jump(); }
     };
     window.addEventListener('keydown', handleKey);

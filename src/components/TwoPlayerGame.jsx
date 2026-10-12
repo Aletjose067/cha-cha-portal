@@ -33,8 +33,18 @@ const TwoPlayerGame = () => {
 
   const keysRef = useRef({});
   useEffect(() => {
-    const dn = (e) => { keysRef.current[e.key.toLowerCase()] = true; };
-    const up = (e) => { keysRef.current[e.key.toLowerCase()] = false; };
+    const isInput = (e) => {
+      const tag = e.target?.tagName?.toLowerCase();
+      return tag === 'input' || tag === 'textarea' || e.target?.isContentEditable;
+    };
+    const dn = (e) => {
+      if (isInput(e)) return;
+      keysRef.current[e.key.toLowerCase()] = true;
+    };
+    const up = (e) => {
+      if (isInput(e)) return;
+      keysRef.current[e.key.toLowerCase()] = false;
+    };
     window.addEventListener('keydown', dn); window.addEventListener('keyup', up);
     return () => { window.removeEventListener('keydown', dn); window.removeEventListener('keyup', up); };
   }, []);

@@ -129,8 +129,20 @@ const HillGame = () => {
 
   const keysRef = useRef({ right: false, left: false });
   useEffect(() => {
-    const dn = (e) => { if (e.key === 'ArrowRight') keysRef.current.right = true; if (e.key === 'ArrowLeft') keysRef.current.left = true; };
-    const up = (e) => { if (e.key === 'ArrowRight') keysRef.current.right = false; if (e.key === 'ArrowLeft') keysRef.current.left = false; };
+    const isInput = (e) => {
+      const tag = e.target?.tagName?.toLowerCase();
+      return tag === 'input' || tag === 'textarea' || e.target?.isContentEditable;
+    };
+    const dn = (e) => {
+      if (isInput(e)) return;
+      if (e.key === 'ArrowRight') keysRef.current.right = true;
+      if (e.key === 'ArrowLeft') keysRef.current.left = true;
+    };
+    const up = (e) => {
+      if (isInput(e)) return;
+      if (e.key === 'ArrowRight') keysRef.current.right = false;
+      if (e.key === 'ArrowLeft') keysRef.current.left = false;
+    };
     window.addEventListener('keydown', dn); window.addEventListener('keyup', up);
     return () => { window.removeEventListener('keydown', dn); window.removeEventListener('keyup', up); };
   }, []);

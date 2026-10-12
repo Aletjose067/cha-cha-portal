@@ -179,7 +179,11 @@ const RunnerGame = () => {
     const canvas = canvasRef.current; const ctx = canvas.getContext('2d');
     drawBg(ctx, stateRef.current); drawOverlay(ctx, 'idle', 0);
     animRef.current = requestAnimationFrame(loop);
-    const onKey = (e) => { if (e.code === 'Space' || e.code === 'ArrowUp') { e.preventDefault(); doJump(); } };
+    const onKey = (e) => {
+      const tag = e.target?.tagName?.toLowerCase();
+      if (tag === 'input' || tag === 'textarea' || e.target?.isContentEditable) return;
+      if (e.code === 'Space' || e.code === 'ArrowUp') { e.preventDefault(); doJump(); }
+    };
     window.addEventListener('keydown', onKey);
     return () => { cancelAnimationFrame(animRef.current); window.removeEventListener('keydown', onKey); };
   }, [loop, doJump]);

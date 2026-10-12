@@ -118,7 +118,11 @@ const FlappyGame = () => {
     const canvas = canvasRef.current; const ctx = canvas.getContext('2d');
     drawBg(ctx); drawOverlay(ctx, 'idle', 0);
     animRef.current = requestAnimationFrame(loop);
-    const onKey = (e) => { if (e.code === 'Space') { e.preventDefault(); jump(); } };
+    const onKey = (e) => {
+      const tag = e.target?.tagName?.toLowerCase();
+      if (tag === 'input' || tag === 'textarea' || e.target?.isContentEditable) return;
+      if (e.code === 'Space') { e.preventDefault(); jump(); }
+    };
     window.addEventListener('keydown', onKey);
     return () => { cancelAnimationFrame(animRef.current); window.removeEventListener('keydown', onKey); };
   }, [loop, jump]);
